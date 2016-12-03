@@ -1,0 +1,17 @@
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <div ng-repeat="blog in blogList">
+        <div class="post-preview">
+            <a ui-sref="blogDetail({blogId: blog.id})">
+                <h2 class="post-title">{{blog.name}}</h2>
+            </a>
+            <p class="post-meta">Posted by <a href="#">{{blog.submittedBy}}</a> on {{blog.submittedAt}}</p>
+        </div>
+        <hr>
+    </div>
+    <!-- Pager -->
+    <ul class="pager">
+        <li class="next">
+            <a href="#">Older Posts &rarr;</a>
+        </li>
+    </ul>
+</div>
