@@ -1,4 +1,4 @@
-var blogApp = angular.module('blogApp', ['ui.router', 'ngStorage']);
+var blogApp = angular.module('blogApp', ['ui.router']);
 
 blogApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -19,9 +19,6 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
     .state('home.postlist', {
         url: '/list',
         templateUrl: 'view/partial-home-list.html',
-        controller: function($scope) {
-            $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
-        },
         data: {
             requireLogin: false
         }
@@ -84,45 +81,6 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
 
 });
 
-blogApp.run(['$rootScope', '$state', '$localStorage', function($rootScope, $state, $localStorage) {
-    $rootScope.$on('$stateChangeStart', function(event, $stateProvider) {
-        var requireLogin = $stateProvider.data.requireLogin;
-        if (requireLogin && typeof $localStorage.isLogin === "undefined" && !$localStorage.isLogin) {
-            event.preventDefault();
-            $state.go("login");
-        }
-    });
-}]);
-
-blogApp.controller('blogAppController', ['$scope', '$localStorage', '$state', function($scope, $localStorage, $state) {
-    console.log("isLogin", $localStorage);
-
-    $scope.isLogin = (typeof $localStorage.isLogin !== "undefined" && $localStorage.isLogin == true) ? true : false;
-
-    $scope.logoutUser = function() {
-        delete $localStorage.isLogin;
-        delete $localStorage.loginUser;
-        $scope.isLogin = (typeof $localStorage.isLogin !== "undefined" && $localStorage.isLogin == true) ? true : false;
-    }
-    $scope.$on("sendLoginInfo", function(evt) {
-        $scope.isLogin = (typeof $localStorage.isLogin !== "undefined" && $localStorage.isLogin == true) ? true : false;
-    });
-    console.log("isLogin", $scope.isLogin);
+blogApp.controller('blogAppController', ['$scope', function($scope) {
     
-    $scope.blogList = [{
-        "id": "1",
-        "name": "Man must explore, and this is exploration at its greatest",
-        "submittedBy": "UserName",
-        "submittedAt": "September 24, 2014"
-    }, {
-        "id": "2",
-        "name": "Man must explore, and this is exploration at its greatest",
-        "submittedBy": "UserName",
-        "submittedAt": "September 24, 2014"
-    }, {
-        "id": "3",
-        "name": "Man must explore, and this is exploration at its greatest",
-        "submittedBy": "UserName",
-        "submittedAt": "September 24, 2014"
-    }];
 }]);
